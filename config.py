@@ -13,6 +13,11 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/' + DATABASE
 
+    GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", None)
+    GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", None)
+    GOOGLE_DISCOVERY_URL = ("https://account.google.com/.well-known/openid-configuration")
+    FACEBOOK_APP_ID = os.environ.get("FACEBOOK_APP_ID", None)
+
 
 class ProductionConfig(Config):
     DEBUG = False
