@@ -7,7 +7,11 @@ class Config(object):
     DEBUG = False
     TESTING = False
     CSRF_ENABLED = True
-    SECRET_KEY = 'myprecious'
+    SECRET_KEY = os.environ.get("SECRET_KEY", None)
+
+    DATABASE = os.environ.get("DATABASE", None)
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/' + DATABASE
 
 
 class ProductionConfig(Config):
