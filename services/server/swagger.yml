@@ -24,7 +24,7 @@ paths:
             - "customer"
             summary: "Add a new customer"
             description: ""
-            operationId: "project.api.add_customer"
+            operationId: "src.api.add_customer"
             consumes:
             - "application/json"
             produces:
@@ -44,7 +44,7 @@ paths:
             - "customer"
             summary: "Update an existing customer"
             description: ""
-            operationId: "project.api.update_customer"
+            operationId: "src.api.update_customer"
             consumes:
             - "application/json"
             produces:
@@ -70,7 +70,7 @@ paths:
             - "customer"
             summary: "Find customer by ID"
             description: "Returns a single customer"
-            operationId: "project.api.get_customer_by_id"
+            operationId: "src.api.get_customer_by_id"
             produces:
             - "application/json"
             parameters:
@@ -94,7 +94,7 @@ paths:
             - "customer"
             summary: "Deletes a customer"
             description: ""
-            operationId: "project.api.delete_customer"
+            operationId: "src.api.delete_customer"
             produces:
             - "application/json"
             parameters:
@@ -115,7 +115,7 @@ paths:
             - "customer"
             summary: "Get all customers"
             description: "Returns all customers"
-            operationId: "project.api.get_all_customers"
+            operationId: "src.api.get_all_customers"
             produces:
             - "application/json"
             parameters: []

@@ -19,11 +19,11 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /usr/quotation/server
 
 # install requirements
-COPY requirements.txt /usr/quotation/server/requirements.txt
+COPY ./requirements.txt /usr/quotation/server/requirements.txt
 RUN pip install -r requirements.txt
 
 # entry script
-COPY app.sh /usr/quotation/server/app.sh
+COPY ./app.sh /usr/quotation/server/app.sh
 
 # modify permissions to run script
 RUN chmod +x /usr/quotation/server/app.sh

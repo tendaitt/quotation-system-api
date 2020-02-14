@@ -3,10 +3,10 @@ version: '3.7'
 services:
     api:
         build:
-            context: .
+            context: ./services/server
             dockerfile: Dockerfile
         entrypoint: ['sh', '/usr/quotation/server/app.sh']
         volumes:
-            - '.:/usr/quotation/server'
+            - './services/server:/usr/quotation/server'
         ports:
             - 5001:5000
