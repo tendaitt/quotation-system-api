@@ -23,7 +23,7 @@ COPY ./requirements.txt /usr/quotation/server/requirements.txt
 RUN pip install -r requirements.txt
 
 # entry script
-COPY ./app.sh /usr/quotation/server/app.sh
+COPY ./services/server/app.sh /usr/quotation/server/app.sh
 
 # modify permissions to run script
 RUN chmod +x /usr/quotation/server/app.sh
