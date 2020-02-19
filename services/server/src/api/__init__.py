@@ -64,3 +64,66 @@ def update_customer(body):  # noqa: E501
     :rtype: None
     """
     return 'do some magic!'
+
+
+def add_inventory_item(body):  # noqa: E501
+    """Add a new inventory item
+
+     # noqa: E501
+
+    :param body: Inventory item that needs to be added
+    :type body: dict | bytes
+
+    :rtype: None
+    """
+    return 'do some magic!'
+
+
+def delete_inventory_item(itemID):  # noqa: E501
+    """Deletes an inventory item
+
+     # noqa: E501
+
+    :param itemID: ID of inventory item to be deleted
+    :type itemID: int
+
+    :rtype: None
+    """
+    return 'do some magic!'
+
+
+def get_all_invetory_items():  # noqa: E501
+    """Get all inventory items
+
+    Returns all inventory items # noqa: E501
+
+
+    :rtype: List[InventoryItem]
+    """
+    return 'do some magic!'
+
+
+def get_inventory_item_by_id(itemID):  # noqa: E501
+    """Find inventory item by ID
+
+    Returns a single inventory item # noqa: E501
+
+    :param itemID: ID of inventory item to return
+    :type itemID: int
+
+    :rtype: InventoryItem
+    """
+    return 'do some magic!'
+
+
+def update_inventory_item(body):  # noqa: E501
+    """Update an existing inventory item
+
+     # noqa: E501
+
+    :param body: Inventory item that needs to be updated
+    :type body: dict | bytes
+
+    :rtype: None
+    """
+    return 'do some magic!'
