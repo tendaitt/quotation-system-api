@@ -66,12 +66,12 @@ def update_customer(body):  # noqa: E501
     return 'do some magic!'
 
 
-def add_inventory_item(body):  # noqa: E501
-    """Add a new inventory item
+def add_product(body):  # noqa: E501
+    """Add a new product
 
      # noqa: E501
 
-    :param body: Inventory item that needs to be added
+    :param body: Product that needs to be added
     :type body: dict | bytes
 
     :rtype: None
@@ -79,49 +79,49 @@ def add_inventory_item(body):  # noqa: E501
     return 'do some magic!'
 
 
-def delete_inventory_item(itemID):  # noqa: E501
-    """Deletes an inventory item
+def delete_product(productID):  # noqa: E501
+    """Deletes a product
 
      # noqa: E501
 
-    :param itemID: ID of inventory item to be deleted
-    :type itemID: int
+    :param productID: ID of product to be deleted
+    :type productID: int
 
     :rtype: None
     """
     return 'do some magic!'
 
 
-def get_all_invetory_items():  # noqa: E501
-    """Get all inventory items
+def get_all_products():  # noqa: E501
+    """Get all products
 
-    Returns all inventory items # noqa: E501
+    Returns all products # noqa: E501
 
 
-    :rtype: List[InventoryItem]
+    :rtype: List[Product]
     """
     return 'do some magic!'
 
 
-def get_inventory_item_by_id(itemID):  # noqa: E501
-    """Find inventory item by ID
+def get_product_by_id(productID):  # noqa: E501
+    """Find product by ID
 
-    Returns a single inventory item # noqa: E501
+    Returns a single product # noqa: E501
 
-    :param itemID: ID of inventory item to return
-    :type itemID: int
+    :param productID: ID of product to return
+    :type productID: int
 
-    :rtype: InventoryItem
+    :rtype: Product
     """
     return 'do some magic!'
 
 
-def update_inventory_item(body):  # noqa: E501
-    """Update an existing inventory item
+def update_product(body):  # noqa: E501
+    """Update an existing product
 
      # noqa: E501
 
-    :param body: Inventory item that needs to be updated
+    :param body: product that needs to be updated
     :type body: dict | bytes
 
     :rtype: None
