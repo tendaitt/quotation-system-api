@@ -238,6 +238,28 @@ paths:
                         items:
                             $ref: "#/definitions/Product"
 
+    /user:
+        post:
+            tags:
+            - "user"
+            summary: "Register a new user"
+            description: ""
+            operationId: "src.api.new_user"
+            consumes:
+            - "application/json"
+            produces:
+            - "application/json"
+            parameters:
+            - in: "body"
+              name: "body"
+              description: "User that needs to be created"
+              required: true
+              schema:
+                $ref: "#/definitions/User"
+            responses:
+                405:
+                    description: "Invalid input"
+
 definitions:
     Customer:
         type: "object"
@@ -276,3 +298,19 @@ definitions:
             price:
                 type: "integer"
                 format: "int64"
+    User:
+        type: "object"
+        required:
+            - "username"
+            - "email"
+            - "image_url"
+        properties:
+            id:
+                type: "integer"
+                format: "int64"
+            username:
+                type: "string"
+            email:
+                type: "string"
+            image_url:
+                type: "string"
