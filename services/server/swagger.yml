@@ -24,7 +24,7 @@ paths:
             - "customer"
             summary: "Add a new customer"
             description: ""
-            operationId: "src.api.add_customer"
+            operationId: "src.controller.customer_controller.add_customer"
             consumes:
             - "application/json"
             produces:
@@ -44,7 +44,7 @@ paths:
             - "customer"
             summary: "Update an existing customer"
             description: ""
-            operationId: "src.api.update_customer"
+            operationId: "src.controller.customer_controller.update_customer"
             consumes:
             - "application/json"
             produces:
@@ -70,7 +70,7 @@ paths:
             - "customer"
             summary: "Find customer by ID"
             description: "Returns a single customer"
-            operationId: "src.api.get_customer_by_id"
+            operationId: "src.controller.customer_controller.get_customer_by_id"
             produces:
             - "application/json"
             parameters:
@@ -94,7 +94,7 @@ paths:
             - "customer"
             summary: "Deletes a customer"
             description: ""
-            operationId: "src.api.delete_customer"
+            operationId: "src.controller.customer_controller.delete_customer"
             produces:
             - "application/json"
             parameters:
@@ -116,7 +116,7 @@ paths:
             - "customer"
             summary: "Get all customers"
             description: "Returns all customers"
-            operationId: "src.api.get_all_customers"
+            operationId: "src.controller.customer_controller.get_all_customers"
             produces:
             - "application/json"
             parameters: []
@@ -134,7 +134,7 @@ paths:
             - "inventory"
             summary: "Add a new product"
             description: ""
-            operationId: "src.api.add_product"
+            operationId: "src.controller.inventory_controller.add_product"
             consumes:
             - "application/json"
             produces:
@@ -154,7 +154,7 @@ paths:
             - "inventory"
             summary: "Update an existing product"
             description: ""
-            operationId: "src.api.update_product"
+            operationId: "src.controller.inventory_controller.update_product"
             consumes:
             - "application/json"
             produces:
@@ -180,7 +180,7 @@ paths:
             - "inventory"
             summary: "Find product by ID"
             description: "Returns a single product"
-            operationId: "src.api.get_product_by_id"
+            operationId: "src.controller.inventory_controller.get_product_by_id"
             produces:
             - "application/json"
             parameters:
@@ -204,7 +204,7 @@ paths:
             - "inventory"
             summary: "Deletes a product"
             description: ""
-            operationId: "src.api.delete_product"
+            operationId: "src.controller.inventory_controller.delete_product"
             produces:
             - "application/json"
             parameters:
@@ -226,7 +226,7 @@ paths:
             - "inventory"
             summary: "Get all products"
             description: "Returns all products"
-            operationId: "src.api.get_all_products"
+            operationId: "src.controller.inventory_controller.get_all_products"
             produces:
             - "application/json"
             parameters: []
@@ -244,7 +244,7 @@ paths:
             - "quote"
             summary: "Create a new quote"
             description: ""
-            operationId: "src.api.create_quote"
+            operationId: "src.controller.quote_controller.create_quote"
             consumes:
             - "application/json"
             produces:
@@ -266,7 +266,7 @@ paths:
             - "quote"
             summary: "Find quote by ID"
             description: "Returns a single quote"
-            operationId: "src.api.get_quote_by_id"
+            operationId: "src.controller.quote_controller.get_quote_by_id"
             produces:
             - "application/json"
             parameters:
@@ -290,7 +290,7 @@ paths:
             - "quote"
             summary: "Deletes a quote"
             description: ""
-            operationId: "src.api.delete_quote"
+            operationId: "src.controller.quote_controller.delete_quote"
             produces:
             - "application/json"
             parameters:
@@ -312,7 +312,7 @@ paths:
             - "quote"
             summary: "Get all quotes"
             description: "Returns all quotes"
-            operationId: "src.api.get_all_quotes"
+            operationId: "src.controller.quote_controller.get_all_quotes"
             produces:
             - "application/json"
             parameters: []
@@ -330,7 +330,7 @@ paths:
             - "user"
             summary: "Register a new user"
             description: ""
-            operationId: "src.api.new_user"
+            operationId: "src.controller.user_controller.new_user"
             consumes:
             - "application/json"
             produces:

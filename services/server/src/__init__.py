@@ -18,7 +18,12 @@ app = create_app()
 
 db = SQLAlchemy(app)
 
-from src.model import User
+from src.model.customer import Customer
+from src.model.product import Product
+from src.model.quote_item import QuoteItem
+from src.model.quote import Quote
+from src.model.transaction import Transaction
+from src.model.user import User
 
 
 @app.route("/")
