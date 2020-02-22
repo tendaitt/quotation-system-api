@@ -14,7 +14,7 @@ class Quote(db.Model):
         nullable=False
     )
 
-    quote_items = db.relationship('QuoteItems', backref='quotes', lazy=True)
+    quote_items = db.relationship('QuoteItem', backref='quotes', lazy=True)
     transactions = db.relationship('Transaction', backref='quotes', lazy=True)
 
     def __init__(self, date=None, description=None, customer_id=None):

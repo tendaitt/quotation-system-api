@@ -11,7 +11,7 @@ class Product(db.Model):
     quantity = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Integer, nullable=False)
 
-    quote_items = db.relationship('QuoteItems', backref='products', lazy=True)
+    quote_items = db.relationship('QuoteItem', backref='products', lazy=True)
 
     def __init__(self, name=None, description=None, quantity=None, price=None):
 
