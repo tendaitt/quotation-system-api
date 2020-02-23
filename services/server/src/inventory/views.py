@@ -79,13 +79,24 @@ def get_product_by_id(productID):
 
 
 def update_product(body):  # noqa: E501
-    """Update an existing product
+    if request.is_json:
+        id = body.get('id')
+        name = body.get('name')
+        description = body.get('description')
+        quantity = body.get('quantity')
+        price = body.get('price')
 
-     # noqa: E501
+        product = db.session.query(Product).filter_by(id=id)
 
-    :param body: product that needs to be updated
-    :type body: dict | bytes
+        data = {
+            'id': id,
+            'name': name,
+            'description': description,
+            'quantity': quantity,
+            'price': price
+        }
 
-    :rtype: None
-    """
-    return 'do some magic!'
+        product.update(data)
+        db.session.commit()
+
+        return make_response('Product information was updated', 201)
