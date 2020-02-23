@@ -12,7 +12,12 @@ def add_customer(body):
         email = body.get('email')
         phone_number = body.get('phone_number')
 
-        new_customer = Customer(first_name, last_name, email, phone_number)
+        new_customer = Customer(
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            phone_number=phone_number
+        )
 
         existing_customer = Customer.query\
             .filter(Customer.first_name == first_name)\
