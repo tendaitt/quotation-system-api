@@ -61,17 +61,21 @@ def get_all_products():  # noqa: E501
     return make_response(jsonify(items=all_products), 200)
 
 
-def get_product_by_id(productID):  # noqa: E501
-    """Find product by ID
+def get_product_by_id(productID):
+    result = db.session.query(Product).filter_by(id=productID).first()
 
-    Returns a single product # noqa: E501
+    if result is None:
+        return 'Product not found', 404
 
-    :param productID: ID of product to return
-    :type productID: int
+    product = {
+        'id': result.id,
+        'name': result.name,
+        'description': result.description,
+        'quantity': result.quantity,
+        'price': result.price
+    }
 
-    :rtype: Product
-    """
-    return 'do some magic!'
+    return make_response(product, 200)
 
 
 def update_product(body):  # noqa: E501
