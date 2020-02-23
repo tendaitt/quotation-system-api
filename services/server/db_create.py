@@ -1,4 +1,7 @@
-from src import db
+from src import create_app, db
 
 # create the database and tables
-db.create_all()
+app = create_app()
+
+with app.app_context():
+    db.create_all()
