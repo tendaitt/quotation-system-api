@@ -45,14 +45,20 @@ def delete_product(productID):  # noqa: E501
 
 
 def get_all_products():  # noqa: E501
-    """Get all products
+    results = db.session.query(Product).order_by(Product.name.asc())
+    all_products = []
 
-    Returns all products # noqa: E501
+    for result in results:
+        product = {
+            'id': result.id,
+            'name': result.name,
+            'description': result.description,
+            'quantity': result.quantity,
+            'price': result.price
+        }
+        all_products.append(product)
 
-
-    :rtype: List[Product]
-    """
-    return 'do some magic!'
+    return make_response(jsonify(items=all_products), 200)
 
 
 def get_product_by_id(productID):  # noqa: E501
