@@ -58,17 +58,21 @@ def get_all_customers():  # noqa: E501
     return make_response(jsonify(items=all_customers), 200)
 
 
-def get_customer_by_id(customerID):  # noqa: E501
-    """Find customer by ID
+def get_customer_by_id(customerID):
+    result = db.session.query(Customer).filter_by(id=customerID).first()
 
-    Returns a single customer # noqa: E501
+    if result is None:
+        return 'Customer not found', 404
 
-    :param customerID: ID of customer to return
-    :type customerID: int
+    customer = {
+        'id': result.id,
+        'first_name': result.first_name,
+        'last_name': result.last_name,
+        'email': result.email,
+        'phone_number': result.phone_number
+    }
 
-    :rtype: Customer
-    """
-    return 'do some magic!'
+    return make_response(customer, 200)
 
 
 def update_customer(body):  # noqa: E501
