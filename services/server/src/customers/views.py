@@ -1,5 +1,5 @@
 from connexion import request
-from flask import make_response, abort
+from flask import make_response, abort, jsonify
 
 from src import db
 from src.models import Customer
@@ -41,14 +41,21 @@ def delete_customer(customerID):
 
 
 def get_all_customers():  # noqa: E501
-    """Get all customers
+    results = db.session.query(Customer)\
+        .order_by(Customer.first_name.asc())
+    all_customers = []
 
-    Returns all customers # noqa: E501
+    for result in results:
+        customer = {
+            'id': result.id,
+            'first_name': result.first_name,
+            'last_name': result.last_name,
+            'email': result.email,
+            'phone_number': result.phone_number
+        }
+        all_customers.append(customer)
 
-
-    :rtype: List[Customer]
-    """
-    return 'do some magic!'
+    return make_response(jsonify(items=all_customers), 200)
 
 
 def get_customer_by_id(customerID):  # noqa: E501
