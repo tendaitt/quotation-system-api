@@ -1,14 +1,35 @@
+from connexion import request
+from flask import make_response, abort, jsonify
+
+from src import db
+from src.models import Product
+
+
 def add_product(body):  # noqa: E501
-    """Add a new product
+    if request.is_json:
+        name = body.get('name')
+        description = body.get('description')
+        quantity = body.get('quantity')
+        price = body.get('price')
 
-     # noqa: E501
+        new_product = Product(
+            name=name,
+            description=description,
+            quantity=quantity,
+            price=price
+        )
 
-    :param body: Product that needs to be added
-    :type body: dict | bytes
+        existing_product = Product.query\
+            .filter(Product.name == name)\
+            .filter(Product.description == description)\
+            .one_or_none()
 
-    :rtype: None
-    """
-    return 'do some magic!'
+        if existing_product is None:
+            db.session.add(new_product)
+            db.session.commit()
+            return make_response('New product successfully created', 201)
+        else:
+            abort(409, f'Product, {name}, already exists')
 
 
 def delete_product(productID):  # noqa: E501
