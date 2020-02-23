@@ -29,17 +29,15 @@ def add_customer(body):
             abort(409, f'Customer, {first_name} {last_name}, already exists')
 
 
-def delete_customer(customerID):  # noqa: E501
-    """Deletes a customer
+def delete_customer(customerID):
+    customer = db.session.query(Customer).filter_by(id=customerID)
 
-     # noqa: E501
+    if customer is None:
+        abort('Customer not found', 404)
 
-    :param customerID: Customer ID to delete
-    :type customerID: int
-
-    :rtype: None
-    """
-    return 'do some magic!'
+    customer.delete()
+    db.session.commit()
+    return make_response('Customer succesfully deleted', 200)
 
 
 def get_all_customers():  # noqa: E501
