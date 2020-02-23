@@ -2,11 +2,11 @@ from connexion import request
 from flask import make_response, abort
 
 from src import db
-from src.customers.models import Customer
+from src.models import Customer
 
 
 def add_customer(body):
-    if request.is_json():
+    if request.is_json:
         first_name = body.get('first_name')
         last_name = body.get('last_name')
         email = body.get('email')
@@ -23,10 +23,10 @@ def add_customer(body):
 
         if existing_customer is None:
             db.session.add(new_customer)
-            db.commit()
-            return make_response(201)
+            db.session.commit()
+            return make_response('New customer was succesfully created', 201)
         else:
-            abort(409, f'Customer, {first_name} {last_name} already exists')
+            abort(409, f'Customer, {first_name} {last_name}, already exists')
 
 
 def delete_customer(customerID):  # noqa: E501
