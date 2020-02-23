@@ -76,13 +76,24 @@ def get_customer_by_id(customerID):
 
 
 def update_customer(body):  # noqa: E501
-    """Update an existing customer
+    if request.is_json:
+        id = body.get('id')
+        first_name = body.get('first_name')
+        last_name = body.get('last_name')
+        email = body.get('email')
+        phone_number = body.get('phone_number')
 
-     # noqa: E501
+        customer = db.session.query(Customer).filter_by(id=id)
 
-    :param body: Customer object to be added
-    :type body: dict | bytes
+        data = {
+            'id': id,
+            'first_name': first_name,
+            'last_name': last_name,
+            'email': email,
+            'phone_number': phone_number
+        }
 
-    :rtype: None
-    """
-    return 'do some magic!'
+        customer.update(data)
+        db.session.commit()
+
+        return make_response('Customer information was updated', 201)
