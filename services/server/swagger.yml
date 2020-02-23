@@ -24,7 +24,7 @@ paths:
             - "customer"
             summary: "Add a new customer"
             description: ""
-            operationId: "src.controller.customer_controller.add_customer"
+            operationId: "add_customer"
             consumes:
             - "application/json"
             produces:
@@ -37,14 +37,17 @@ paths:
               schema:
                 $ref: "#/definitions/Customer"
             responses:
+                201:
+                    description: "New customer was succesfully created"
                 405:
                     description: "Invalid input"
+            x-swagger-router-controller: "src.customers.views"
         put:
             tags:
             - "customer"
             summary: "Update an existing customer"
             description: ""
-            operationId: "src.controller.customer_controller.update_customer"
+            operationId: "update_customer"
             consumes:
             - "application/json"
             produces:
@@ -63,6 +66,7 @@ paths:
                     description: "Customer not found"
                 405:
                     description: "Validation exception"
+            x-swagger-router-controller: "src.customers.views"
 
     /customer/{customerID}:
         get:
@@ -70,7 +74,7 @@ paths:
             - "customer"
             summary: "Find customer by ID"
             description: "Returns a single customer"
-            operationId: "src.controller.customer_controller.get_customer_by_id"
+            operationId: "get_customer_by_id"
             produces:
             - "application/json"
             parameters:
@@ -89,12 +93,13 @@ paths:
                     description: "Invalid ID supplied"
                 404:
                     description: "Customer not found"
+            x-swagger-router-controller: "src.customers.views"
         delete:
             tags:
             - "customer"
             summary: "Deletes a customer"
             description: ""
-            operationId: "src.controller.customer_controller.delete_customer"
+            operationId: "delete_customer"
             produces:
             - "application/json"
             parameters:
@@ -109,6 +114,7 @@ paths:
                     description: "Invalid ID supplied"
                 404:
                     description: "Customer not found"
+            x-swagger-router-controller: "src.customers.views"
 
     /customer/all:
         get:
@@ -116,7 +122,7 @@ paths:
             - "customer"
             summary: "Get all customers"
             description: "Returns all customers"
-            operationId: "src.controller.customer_controller.get_all_customers"
+            operationId: "get_all_customers"
             produces:
             - "application/json"
             parameters: []
@@ -127,6 +133,7 @@ paths:
                         type: "array"
                         items:
                             $ref: "#/definitions/Customer"
+            x-swagger-router-controller: "src.customers.views"
 
     /inventory:
         post:
@@ -134,7 +141,7 @@ paths:
             - "inventory"
             summary: "Add a new product"
             description: ""
-            operationId: "src.controller.inventory_controller.add_product"
+            operationId: "add_product"
             consumes:
             - "application/json"
             produces:
@@ -149,12 +156,13 @@ paths:
             responses:
                 405:
                     description: "Invalid input"
+            x-swagger-router-controller: "src.inventory.views"
         put:
             tags:
             - "inventory"
             summary: "Update an existing product"
             description: ""
-            operationId: "src.controller.inventory_controller.update_product"
+            operationId: "update_product"
             consumes:
             - "application/json"
             produces:
@@ -173,14 +181,15 @@ paths:
                     description: "Product not found"
                 405:
                     description: "Validation exception"
-                        
+            x-swagger-router-controller: "src.inventory.views"
+
     /inventory/{productID}:
         get:
             tags:
             - "inventory"
             summary: "Find product by ID"
             description: "Returns a single product"
-            operationId: "src.controller.inventory_controller.get_product_by_id"
+            operationId: "get_product_by_id"
             produces:
             - "application/json"
             parameters:
@@ -199,12 +208,13 @@ paths:
                     description: "Invalid ID supplied"
                 404:
                     description: "Product not found"
+            x-swagger-router-controller: "src.inventory.views"
         delete:
             tags:
             - "inventory"
             summary: "Deletes a product"
             description: ""
-            operationId: "src.controller.inventory_controller.delete_product"
+            operationId: "delete_product"
             produces:
             - "application/json"
             parameters:
@@ -219,6 +229,7 @@ paths:
                     description: "Invalid ID supplied"
                 404:
                     description: "Product not found"
+            x-swagger-router-controller: "src.inventory.views"
 
     /inventory/all:
         get:
@@ -226,7 +237,7 @@ paths:
             - "inventory"
             summary: "Get all products"
             description: "Returns all products"
-            operationId: "src.controller.inventory_controller.get_all_products"
+            operationId: "get_all_products"
             produces:
             - "application/json"
             parameters: []
@@ -237,6 +248,7 @@ paths:
                         type: "array"
                         items:
                             $ref: "#/definitions/Product"
+            x-swagger-router-controller: "src.inventory.views"
 
     /quote:
         post:
@@ -244,7 +256,7 @@ paths:
             - "quote"
             summary: "Create a new quote"
             description: ""
-            operationId: "src.controller.quote_controller.create_quote"
+            operationId: "create_quote"
             consumes:
             - "application/json"
             produces:
@@ -259,6 +271,7 @@ paths:
             responses:
                 405:
                     description: "Invalid input"
+            x-swagger-router-controller: "src.quotes.views"
 
     /quote/{quoteID}:
         get:
@@ -266,7 +279,7 @@ paths:
             - "quote"
             summary: "Find quote by ID"
             description: "Returns a single quote"
-            operationId: "src.controller.quote_controller.get_quote_by_id"
+            operationId: "get_quote_by_id"
             produces:
             - "application/json"
             parameters:
@@ -285,12 +298,13 @@ paths:
                     description: "Invalid ID supplied"
                 404:
                     description: "Quote not found"
+            x-swagger-router-controller: "src.quotes.views"
         delete:
             tags:
             - "quote"
             summary: "Deletes a quote"
             description: ""
-            operationId: "src.controller.quote_controller.delete_quote"
+            operationId: "delete_quote"
             produces:
             - "application/json"
             parameters:
@@ -305,6 +319,7 @@ paths:
                     description: "Invalid ID supplied"
                 404:
                     description: "Quote not found"
+            x-swagger-router-controller: "src.quotes.views"
 
     /quote/all:
         get:
@@ -312,7 +327,7 @@ paths:
             - "quote"
             summary: "Get all quotes"
             description: "Returns all quotes"
-            operationId: "src.controller.quote_controller.get_all_quotes"
+            operationId: "get_all_quotes"
             produces:
             - "application/json"
             parameters: []
@@ -323,6 +338,7 @@ paths:
                         type: "array"
                         items:
                             $ref: "#/definitions/Quote"
+            x-swagger-router-controller: "src.quotes.views"
 
     /user:
         post:
@@ -330,7 +346,7 @@ paths:
             - "user"
             summary: "Register a new user"
             description: ""
-            operationId: "src.controller.user_controller.new_user"
+            operationId: "new_user"
             consumes:
             - "application/json"
             produces:
@@ -345,6 +361,7 @@ paths:
             responses:
                 405:
                     description: "Invalid input"
+            x-swagger-router-controller: "src.users.views"
 
 definitions:
     Customer:

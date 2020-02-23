@@ -1,7 +1,7 @@
 import os
 import connexion
 
-from flask_sqlalchemy import SQLAlchemy
+from src.database import db
 
 
 def create_app():
@@ -10,20 +10,16 @@ def create_app():
     app.add_api('swagger.yml')
     application = app.app
     application.config.from_object(os.environ['APP_SETTINGS'])
+    init_db(application)
 
     return application
 
 
+def init_db(app):
+    db.init_app(app)
+
+
 app = create_app()
-
-db = SQLAlchemy(app)
-
-from src.model.customer import Customer
-from src.model.product import Product
-from src.model.quote_item import QuoteItem
-from src.model.quote import Quote
-from src.model.transaction import Transaction
-from src.model.user import User
 
 
 @app.route("/")
