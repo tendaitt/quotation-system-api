@@ -1,14 +1,49 @@
+from connexion import request
+from flask import make_response, abort, jsonify
+
+from src import db
+from src.models import Quote, QuoteItem, Transaction
+
+
 def create_quote(body):  # noqa: E501
-    """Create a new quote
+    if request.is_json:
+        customer_id = body.get('customer_id')
+        date = body.get('date')
+        description = body.get('description')
 
-     # noqa: E501
+        new_quote = Quote(
+            customer_id=customer_id,
+            date=date,
+            description=description
+        )
 
-    :param body: Quote that needs to be created
-    :type body: dict | bytes
+        db.session.add(new_quote)
+        db.session.commit()
 
-    :rtype: None
-    """
-    return 'do some magic!'
+        line_items = body.get('quote_items')
+
+        for item in line_items:
+            new_quote_item = QuoteItem(
+                product_id=item.get('product_id'),
+                product_quantity=item.get('product_quantity'),
+                product_price=item.get('product_price'),
+                quote_id=new_quote.id
+            )
+            db.session.add(new_quote_item)
+
+        amount = 0
+
+        new_transaction = Transaction(
+            customer_id=customer_id,
+            quote_id=new_quote.id,
+            date=date,
+            amount=amount
+        )
+
+        db.session.add(new_transaction)
+        db.session.commit()
+
+        return make_response('New quote was successfully created', 201)
 
 
 def delete_quote(quoteID):  # noqa: E501
