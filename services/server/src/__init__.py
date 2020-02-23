@@ -20,9 +20,3 @@ def init_db(app):
 
 
 app = create_app()
-
-
-@app.route("/")
-@app.route("/hello")
-def hello_world():
-    return "Hello, World!"
