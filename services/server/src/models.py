@@ -10,7 +10,8 @@ class User(db.Model):
     email = db.Column(db.String, unique=True, nullable=False)
     image_url = db.Column(db.String, unique=True, nullable=False)
 
-    def __init__(self, name=None, email=None, image_url=None):
+    def __init__(self, id=None, name=None, email=None, image_url=None):
+        self.id = id
         self.name = name
         self.email = email
         self.image_url = image_url
@@ -36,9 +37,10 @@ class Customer(db.Model):
         lazy=True
     )
 
-    def __init__(self, first_name=None, last_name=None,
+    def __init__(self, id=None, first_name=None, last_name=None,
                  email=None, phone_number=None):
 
+        self.id = id
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
@@ -57,8 +59,10 @@ class Product(db.Model):
 
     quote_items = db.relationship('QuoteItem', backref='products', lazy=True)
 
-    def __init__(self, name=None, description=None, quantity=None, price=None):
+    def __init__(self, id=None, name=None,
+                 description=None, quantity=None, price=None):
 
+        self.id = id
         self.name = name
         self.description = description
         self.quantity = quantity
@@ -81,7 +85,8 @@ class Quote(db.Model):
     quote_items = db.relationship('QuoteItem', backref='quotes', lazy=True)
     transactions = db.relationship('Transaction', backref='quotes', lazy=True)
 
-    def __init__(self, date=None, description=None, customer_id=None):
+    def __init__(self, id=None, date=None, description=None, customer_id=None):
+        self.id = id
         self.date = date
         self.description = description
         self.customer_id = customer_id
@@ -105,9 +110,10 @@ class QuoteItem(db.Model):
         nullable=False
     )
 
-    def __init__(self, product_quantity=None, product_price=None,
+    def __init__(self, id=None, product_quantity=None, product_price=None,
                  product_id=None, quote_id=None):
 
+        self.id = id
         self.product_quantity = product_quantity
         self.product_price = product_price
         self.product_id = product_id
@@ -132,9 +138,9 @@ class Transaction(db.Model):
         nullable=False
     )
 
-    def __init__(self, date=None, amount=None,
+    def __init__(self, id=None, date=None, amount=None,
                  customer_id=None, quote_id=None):
-
+        self.id = id
         self.date = date
         self.amount = amount
         self.customer_id = customer_id
