@@ -33,16 +33,15 @@ def add_product(body):  # noqa: E501
 
 
 def delete_product(productID):  # noqa: E501
-    """Deletes a product
+    product = db.session.query(Product).filter_by(id=productID)
 
-     # noqa: E501
+    if product.one_or_none() is None:
+        abort(404, 'Product not found')
 
-    :param productID: ID of product to be deleted
-    :type productID: int
+    product.delete()
+    db.session.commit()
 
-    :rtype: None
-    """
-    return 'do some magic!'
+    return make_response('Product sucessfully deleted', 200)
 
 
 def get_all_products():  # noqa: E501
