@@ -37,7 +37,7 @@ def add_customer(body):
 def delete_customer(customerID):
     customer = db.session.query(Customer).filter_by(id=customerID)
 
-    if customer is None:
+    if customer.one_or_none() is None:
         abort('Customer not found', 404)
 
     customer.delete()
