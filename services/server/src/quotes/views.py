@@ -82,7 +82,7 @@ def get_all_quotes():  # noqa: E501
         quote = {
             'id': result.id,
             'customer_id': result.customer_id,
-            'descriptioin': result.description,
+            'description': result.description,
             'date': result.date,
             'quote_items': all_quote_items
         }
@@ -92,14 +92,32 @@ def get_all_quotes():  # noqa: E501
     return make_response(jsonify(items=all_quotes), 200)
 
 
-def get_quote_by_id(quoteID):  # noqa: E501
-    """Find quote by ID
+def get_quote_by_id(quoteID):
+    result = db.session.query(Quote).filter_by(id=quoteID).first()
 
-    Returns a single quote # noqa: E501
+    if result is None:
+        return 'Quote not found', 404
 
-    :param quoteID: ID of the quote to return
-    :type quoteID: int
+    all_quote_items = []
 
-    :rtype: Quote
-    """
-    return 'do some magic!'
+    items = db.session.query(QuoteItem).filter_by(quote_id=result.id)
+
+    for item in items:
+        data = {
+            'id': item.id,
+            'product_id': item.product_id,
+            'product_quantity': item.product_quantity,
+            'product_price': item.product_price,
+            'quote_id': item.quote_id
+        }
+        all_quote_items.append(data)
+
+    quote = {
+        'id': result.id,
+        'customer_id': result.customer_id,
+        'description': result.description,
+        'date': result.date,
+        'quote_items': all_quote_items
+    }
+
+    return make_response(quote, 200)
