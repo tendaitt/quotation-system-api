@@ -46,17 +46,23 @@ def create_quote(body):  # noqa: E501
         return make_response('New quote was successfully created', 201)
 
 
-def delete_quote(quoteID):  # noqa: E501
-    """Deletes a quote
+def delete_quote(quoteID):
+    quote = db.session.query(Quote).filter_by(id=quoteID)
 
-     # noqa: E501
+    if quote.one_or_none() is None:
+        abort(404, 'Quote not found')
 
-    :param quoteID: ID of quote to be deleted
-    :type quoteID: int
+    quote_id = quote.first().id
+    quote_items = db.session.query(QuoteItem).filter_by(quote_id=quote_id)
+    transaction = db.session.query(Transaction).filter_by(quote_id=quote_id)
 
-    :rtype: None
-    """
-    return 'do some magic!'
+    quote_items.delete()
+    transaction.delete()
+    quote.delete()
+
+    db.session.commit()
+
+    return make_response('Quote successfully deleted', 200)
 
 
 def get_all_quotes():  # noqa: E501
