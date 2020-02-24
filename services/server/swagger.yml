@@ -17,6 +17,10 @@ tags:
 - name: "quote"
   description: "Manage quotes"
 
+schemes:
+- "https"
+- "http"
+
 paths:
     /customer:
         post:
@@ -364,6 +368,57 @@ paths:
                 405:
                     description: "Invalid input"
             x-swagger-router-controller: "src.users.views"
+
+    /user/login:
+        get:
+            tags:
+            - "user"
+            summary: "Logs users into the system"
+            description: ""
+            operationId: "login"
+            produces:
+            - "application/json"
+            parameters:
+            - name: "username"
+              in: "query"
+              description: "The username for login"
+              required: true
+              type: "string"
+            - name: "password"
+              in: "query"
+              description: "The password for login"
+              required: true
+              type: "string"
+            responses:
+                200:
+                    description: "successful operation"
+                    schema:
+                        type: "string"
+                    headers:
+                        X-Rate-Limit:
+                            type: "integer"
+                            format: "int32"
+                            description: "calls per hour allowed by the user"
+                        X-Expires-After:
+                            type: "string"
+                            format: "date-time"
+                            description: "date in UTC when token expires"
+                400:
+                    description: "Invalid username/password supplied"
+
+    /user/logout:
+        get:
+            tags:
+            - "user"
+            summary: "Logs out current logged in user session"
+            description: ""
+            operationId: "logout"
+            produces:
+            - "application/json"
+            parameters: []
+            responses:
+                default:
+                    description: "successful operation"
 
 definitions:
     Customer:
