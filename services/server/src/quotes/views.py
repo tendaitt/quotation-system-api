@@ -60,14 +60,36 @@ def delete_quote(quoteID):  # noqa: E501
 
 
 def get_all_quotes():  # noqa: E501
-    """Get all quotes
+    results = db.session.query(Quote).order_by(Quote.date.asc())
+    all_quotes = []
 
-    Returns all quotes # noqa: E501
+    for result in results:
+        all_quote_items = []
 
+        items = db.session.query(QuoteItem)\
+            .filter_by(quote_id=result.id)
 
-    :rtype: List[Quote]
-    """
-    return 'do some magic!'
+        for item in items:
+            data = {
+                'id': item.id,
+                'product_id': item.product_id,
+                'product_quantity': item.product_quantity,
+                'product_price': item.product_price,
+                'quote_id': item.quote_id
+            }
+            all_quote_items.append(data)
+
+        quote = {
+            'id': result.id,
+            'customer_id': result.customer_id,
+            'descriptioin': result.description,
+            'date': result.date,
+            'quote_items': all_quote_items
+        }
+
+        all_quotes.append(quote)
+
+    return make_response(jsonify(items=all_quotes), 200)
 
 
 def get_quote_by_id(quoteID):  # noqa: E501
