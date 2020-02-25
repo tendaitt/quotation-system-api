@@ -405,6 +405,7 @@ paths:
                             description: "date in UTC when token expires"
                 400:
                     description: "Invalid username/password supplied"
+            x-swagger-router-controller: "src.users.views"
 
     /user/logout:
         get:
@@ -419,6 +420,7 @@ paths:
             responses:
                 default:
                     description: "successful operation"
+            x-swagger-router-controller: "src.users.views"
 
 definitions:
     Customer:
