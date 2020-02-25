@@ -1,10 +1,3 @@
-import pytest
-
-from flask import json
-
-from src.models import User
-
-
 def test_new_user(test_app):
 
     new_user = {
