@@ -48,6 +48,7 @@ jobs:
       - run:
           name: run linter (flake8)
           command: |
+            . venv/bin/activate
             flake8 services/
 
       # run tests!
