@@ -10,9 +10,9 @@ class User(db.Model):
     email = db.Column(db.String, unique=True, nullable=False)
     image_url = db.Column(db.String, unique=True, nullable=False)
 
-    def __init__(self, id=None, name=None, email=None, image_url=None):
+    def __init__(self, id=None, username=None, email=None, image_url=None):
         self.id = id
-        self.name = name
+        self.username = username
         self.email = email
         self.image_url = image_url
 
