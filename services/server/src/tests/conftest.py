@@ -7,4 +7,5 @@ from src import create_app
 def test_app():
     app = create_app()
     with app.app_context():
-        yield app
+        testing_client = app.test_client()
+        yield testing_client
