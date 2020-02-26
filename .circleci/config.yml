@@ -60,7 +60,7 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-           pytest --cov-report term --cov="src" -p no:warnings
+            pytest --cov-report term --cov="src" -p no:warnings
 
       - store_artifacts:
           path: test-reports
