@@ -1,4 +1,4 @@
-def test_new_user(test_app):
+def test_new_user(test_client):
 
     new_user = {
         'username': 'johndoe',
@@ -6,7 +6,7 @@ def test_new_user(test_app):
         'image_url': 'https://dummyimage.com/629x296'
     }
 
-    response = test_app.post(
+    response = test_client.post(
         '/v1/user',
         json=new_user,
         content_type='application/json'
