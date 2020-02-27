@@ -1,7 +1,5 @@
 import os
 import pytest
-import csv
-import psycopg2
 
 from sqlalchemy import create_engine
 from sqlalchemy_utils import database_exists, create_database
