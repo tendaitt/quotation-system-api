@@ -1,5 +1,25 @@
-def test_add_new_customer_to_database():
-    pass
+from src.models import Customer
+
+
+def test_add_new_customer_to_database(test_db):
+    new_customer = Customer(
+        first_name='John',
+        last_name='Doe',
+        email='john@doe.com',
+        phone_number='(000)000-0000'
+    )
+
+    test_db.session.add(new_customer)
+    test_db.session.commit()
+
+    customer = Customer.query\
+        .filter(Customer.first_name == 'John')\
+        .filter(Customer.last_name == 'Doe')\
+        .filter(Customer.email == 'john@doe.com')\
+        .filter(Customer.phone_number == '(000)000-0000')\
+        .one_or_none()
+
+    assert customer is not None
 
 
 def test_add_new_customer_when_none_exists(test_client, test_db):
