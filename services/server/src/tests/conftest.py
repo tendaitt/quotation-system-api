@@ -4,7 +4,7 @@ import csv
 import psycopg2
 
 from sqlalchemy import create_engine
-from sqlalchemy_utils import database_exists, create_database, drop_database
+from sqlalchemy_utils import database_exists, create_database
 
 from src import create_app
 from src.database import db
@@ -94,4 +94,4 @@ def test_db(test_app):
 
         yield db
 
-    drop_database(engine.url)
+    db.drop_all()
