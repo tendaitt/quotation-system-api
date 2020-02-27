@@ -10,7 +10,6 @@ def create_app():
     app.add_api('swagger.yml')
     application = app.app
     application.config.from_object(os.environ['APP_SETTINGS'])
-    init_db(application)
 
     return application
 
@@ -20,3 +19,4 @@ def init_db(app):
 
 
 app = create_app()
+init_db(app)
