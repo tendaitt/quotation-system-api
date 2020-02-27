@@ -27,8 +27,8 @@ class Customer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String, nullable=False)
     last_name = db.Column(db.String, nullable=False)
-    email = db.Column(db.String, nullable=False)
-    phone_number = db.Column(db.String, nullable=False)
+    email = db.Column(db.String, unique=True, nullable=False)
+    phone_number = db.Column(db.String, unique=True, nullable=False)
 
     quotes = db.relationship('Quote', backref='customers', lazy=True)
     transactions = db.relationship(
