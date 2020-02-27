@@ -3,6 +3,9 @@ import pytest
 import csv
 import psycopg2
 
+from sqlalchemy import create_engine
+from sqlalchemy_utils import database_exists, create_database, drop_database
+
 from src import create_app
 from src.database import db
 
@@ -13,7 +16,11 @@ TEST_DB = "test"
 
 def load_customer_data():
 
-    conn = psycopg2.connect('postgresql://localhost/' + TEST_DB)
+    conn = psycopg2.connect(
+        host='localhost',
+        database=TEST_DB,
+        user='postgres'
+    )
 
     c = conn.cursor()
 
@@ -34,7 +41,11 @@ def load_customer_data():
 
 def load_product_data():
 
-    conn = psycopg2.connect('postgresql://localhost/' + TEST_DB)
+    conn = psycopg2.connect(
+        host='localhost',
+        database=TEST_DB,
+        user='postgres'
+    )
 
     c = conn.cursor()
 
@@ -59,15 +70,19 @@ def test_app():
         yield app
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='function')
 def test_client(test_app):
     with test_app.app_context():
         testing_client = test_app.test_client()
         yield testing_client
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='function')
 def test_db(test_app):
+    engine = create_engine('postgresql://localhost/' + TEST_DB)
+
+    if not database_exists(engine.url):
+        create_database(engine.url)
 
     with test_app.app_context():
 
@@ -79,4 +94,4 @@ def test_db(test_app):
 
         yield db
 
-        db.drop_all()
+    drop_database(engine.url)
