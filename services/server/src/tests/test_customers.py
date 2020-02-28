@@ -153,8 +153,10 @@ def test_delete_non_existent_customer(test_client, test_db):
     assert response.data == b'Customer not found'
 
 
-def test_get_all_customers():
-    pass
+def test_get_all_customers(test_client, test_db):
+    response = test_client.get('/v1/customer/all')
+
+    assert response.status_code == 200
 
 
 def test_get_existing_customer_by_id(test_client, test_db):
