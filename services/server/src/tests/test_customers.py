@@ -176,5 +176,12 @@ def test_get_existing_customer_by_id(test_client, test_db):
     assert response.status_code == 200
 
 
+def test_get_non_existent_customer_by_id(test_client, test_db):
+    response = test_client.get('/v1/customer/1')
+
+    assert response.status_code == 404
+    assert response.data == b'Customer not found'
+
+
 def test_update_customer():
     pass

@@ -80,7 +80,7 @@ def get_customer_by_id(customerID):
     result = db.session.query(Customer).filter_by(id=customerID).first()
 
     if result is None:
-        return 'Customer not found', 404
+        return make_response('Customer not found', 404)
 
     customer = {
         'id': result.id,
