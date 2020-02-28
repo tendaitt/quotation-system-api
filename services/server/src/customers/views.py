@@ -55,7 +55,7 @@ def delete_customer(customerID):
 
     customer.delete()
     db.session.commit()
-    return make_response('Customer succesfully deleted', 200)
+    return make_response('Customer successfully deleted', 200)
 
 
 def get_all_customers():  # noqa: E501

@@ -126,7 +126,27 @@ def test_cannot_add_customer_with_existing_phone_number(test_client, test_db):
     assert response.data == b'That email/phone number already exists'
 
 
-def test_delete_customer():
+def test_delete_existing_customer(test_client, test_db):
+    new_customer = {
+        'first_name': 'John',
+        'last_name': 'Doe',
+        'email': 'john@doe.com',
+        'phone_number': '(000) 000-0000'
+    }
+
+    test_client.post(
+        '/v1/customer',
+        json=new_customer,
+        content_type='application/json'
+    )
+
+    response = test_client.delete('/v1/customer/1')
+
+    assert response.status_code == 200
+    assert response.data == b'Customer successfully deleted'
+
+
+def test_delete_non_existent_customer():
     pass
 
 
