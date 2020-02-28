@@ -1,5 +1,6 @@
 from connexion import request
 from flask import make_response, abort, jsonify
+from sqlalchemy.exc import IntegrityError
 
 from src import db
 from src.models import Customer
@@ -27,9 +28,18 @@ def add_customer(body):
             .one_or_none()
 
         if existing_customer is None:
-            db.session.add(new_customer)
-            db.session.commit()
-            return make_response('New customer was succesfully created', 201)
+            try:
+                db.session.add(new_customer)
+                db.session.commit()
+                return make_response(
+                    'New customer was successfully created',
+                    201
+                )
+            except IntegrityError:
+                return make_response(
+                    'That email/phone number already exists',
+                    409
+                )
         else:
             return make_response(
                 f'Customer, {first_name} {last_name}, already exists',

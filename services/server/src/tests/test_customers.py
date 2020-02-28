@@ -37,7 +37,7 @@ def test_add_new_customer_when_none_exists(test_client, test_db):
     )
 
     assert response.status_code == 201
-    assert response.data == b'New customer was succesfully created'
+    assert response.data == b'New customer was successfully created'
 
 
 def test_cannot_add_duplicate_customer(test_client, test_db):
@@ -64,8 +64,35 @@ def test_cannot_add_duplicate_customer(test_client, test_db):
     assert response.data == b'Customer, John Doe, already exists'
 
 
-def test_cannot_add_customer_with_existing_email():
-    pass
+def test_cannot_add_customer_with_existing_email(test_client, test_db):
+    new_customer = {
+        'first_name': 'John',
+        'last_name': 'Doe',
+        'email': 'john@doe.com',
+        'phone_number': '(000)000-0000'
+    }
+
+    test_client.post(
+        '/v1/customer',
+        json=new_customer,
+        content_type='application/json'
+    )
+
+    new_customer_2 = {
+        'first_name': 'Jane',
+        'last_name': 'Doe',
+        'email': 'john@doe.com',
+        'phone_number': '(123)-456-7890'
+    }
+
+    response = test_client.post(
+        '/v1/customer',
+        json=new_customer_2,
+        content_type='application/json'
+    )
+
+    assert response.status_code == 409
+    assert response.data == b'That email/phone number already exists'
 
 
 def test_cannot_add_customer_with_existing_phone_number():
