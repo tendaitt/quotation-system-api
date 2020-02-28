@@ -157,8 +157,23 @@ def test_get_all_customers():
     pass
 
 
-def test_get_customer_by_id():
-    pass
+def test_get_existing_customer_by_id(test_client, test_db):
+    new_customer = {
+        'first_name': 'John',
+        'last_name': 'Doe',
+        'email': 'john@doe.com',
+        'phone_number': '(000) 000-0000'
+    }
+
+    test_client.post(
+        '/v1/customer',
+        json=new_customer,
+        content_type='application/json'
+    )
+
+    response = test_client.get('/v1/customer/1')
+
+    assert response.status_code == 200
 
 
 def test_update_customer():
