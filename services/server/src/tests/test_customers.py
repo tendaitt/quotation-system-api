@@ -6,7 +6,7 @@ def test_add_new_customer_to_database(test_db):
         first_name='John',
         last_name='Doe',
         email='john@doe.com',
-        phone_number='(000)000-0000'
+        phone_number='(000) 000-0000'
     )
 
     test_db.session.add(new_customer)
@@ -16,7 +16,7 @@ def test_add_new_customer_to_database(test_db):
         .filter(Customer.first_name == 'John')\
         .filter(Customer.last_name == 'Doe')\
         .filter(Customer.email == 'john@doe.com')\
-        .filter(Customer.phone_number == '(000)000-0000')\
+        .filter(Customer.phone_number == '(000) 000-0000')\
         .one_or_none()
 
     assert customer is not None
@@ -27,7 +27,7 @@ def test_add_new_customer_when_none_exists(test_client, test_db):
         'first_name': 'John',
         'last_name': 'Doe',
         'email': 'john@doe.com',
-        'phone_number': '(000)000-0000'
+        'phone_number': '(000) 000-0000'
     }
 
     response = test_client.post(
@@ -45,7 +45,7 @@ def test_cannot_add_duplicate_customer(test_client, test_db):
         'first_name': 'John',
         'last_name': 'Doe',
         'email': 'john@doe.com',
-        'phone_number': '(000)000-0000'
+        'phone_number': '(000) 000-0000'
     }
 
     test_client.post(
@@ -69,7 +69,7 @@ def test_cannot_add_customer_with_existing_email(test_client, test_db):
         'first_name': 'John',
         'last_name': 'Doe',
         'email': 'john@doe.com',
-        'phone_number': '(000)000-0000'
+        'phone_number': '(000) 000-0000'
     }
 
     test_client.post(
@@ -82,7 +82,7 @@ def test_cannot_add_customer_with_existing_email(test_client, test_db):
         'first_name': 'Jane',
         'last_name': 'Doe',
         'email': 'john@doe.com',
-        'phone_number': '(123)-456-7890'
+        'phone_number': '(123) 456-7890'
     }
 
     response = test_client.post(
@@ -95,8 +95,35 @@ def test_cannot_add_customer_with_existing_email(test_client, test_db):
     assert response.data == b'That email/phone number already exists'
 
 
-def test_cannot_add_customer_with_existing_phone_number():
-    pass
+def test_cannot_add_customer_with_existing_phone_number(test_client, test_db):
+    new_customer = {
+        'first_name': 'John',
+        'last_name': 'Doe',
+        'email': 'john@doe.com',
+        'phone_number': '(000) 000-0000'
+    }
+
+    test_client.post(
+        '/v1/customer',
+        json=new_customer,
+        content_type='application/json'
+    )
+
+    new_customer_2 = {
+        'first_name': 'Jane',
+        'last_name': 'Doe',
+        'email': 'jane@doe.com',
+        'phone_number': '(000) 000-0000'
+    }
+
+    response = test_client.post(
+        '/v1/customer',
+        json=new_customer_2,
+        content_type='application/json'
+    )
+
+    assert response.status_code == 409
+    assert response.data == b'That email/phone number already exists'
 
 
 def test_delete_customer():
