@@ -9,7 +9,7 @@ from src.database import db
 TEST_DB = "test"
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='function')
 def test_app():
     app = create_app()
     with app.app_context():
