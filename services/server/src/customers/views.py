@@ -31,7 +31,10 @@ def add_customer(body):
             db.session.commit()
             return make_response('New customer was succesfully created', 201)
         else:
-            abort(409, f'Customer, {first_name} {last_name}, already exists')
+            return make_response(
+                f'Customer, {first_name} {last_name}, already exists',
+                409
+            )
 
 
 def delete_customer(customerID):
