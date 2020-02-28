@@ -185,5 +185,36 @@ def test_get_non_existent_customer_by_id(test_client, test_db):
     assert response.data == b'Customer not found'
 
 
-def test_update_customer():
+def test_update_existing_customer(test_client, test_db):
+    new_customer = {
+        'first_name': 'John',
+        'last_name': 'Doe',
+        'email': 'john@doe.com',
+        'phone_number': '(000) 000-0000'
+    }
+
+    test_client.post(
+        '/v1/customer',
+        json=new_customer,
+        content_type='application/json'
+    )
+
+    updated_customer = {
+        'first_name': 'John',
+        'last_name': 'Doe',
+        'email': 'john@doe.com',
+        'phone_number': '(123) 456-7890'
+    }
+
+    response = test_client.put(
+        '/v1/customer',
+        json=updated_customer,
+        content_type='application/json'
+    )
+
+    assert response.status_code == 201
+    assert response.data == b'Customer information was updated'
+
+
+def test_update_non_existent_customer():
     pass
