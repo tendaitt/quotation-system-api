@@ -1,5 +1,5 @@
 from connexion import request
-from flask import make_response, abort, jsonify
+from flask import make_response, jsonify
 from sqlalchemy.exc import IntegrityError
 
 from src import db
@@ -51,7 +51,7 @@ def delete_customer(customerID):
     customer = db.session.query(Customer).filter_by(id=customerID)
 
     if customer.one_or_none() is None:
-        abort('Customer not found', 404)
+        return make_response('Customer not found', 404)
 
     customer.delete()
     db.session.commit()

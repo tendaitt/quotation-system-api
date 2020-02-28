@@ -146,8 +146,11 @@ def test_delete_existing_customer(test_client, test_db):
     assert response.data == b'Customer successfully deleted'
 
 
-def test_delete_non_existent_customer():
-    pass
+def test_delete_non_existent_customer(test_client, test_db):
+    response = test_client.delete('/v1/customer/1')
+
+    assert response.status_code == 404
+    assert response.data == b'Customer not found'
 
 
 def test_get_all_customers():
