@@ -116,7 +116,10 @@ def test_delete_existing_product(test_client, test_db):
 
 
 def test_delete_non_existent_product(test_client, test_db):
-    pass
+    response = test_client.delete('/v1/inventory/1')
+
+    assert response.status_code == 404
+    assert response.data == b'Product not found'
 
 
 def test_get_all_products():

@@ -49,7 +49,7 @@ def delete_product(productID):
     product = db.session.query(Product).filter_by(id=productID)
 
     if product.one_or_none() is None:
-        abort(404, 'Product not found')
+        return make_response('Product not found', 404)
 
     product.delete()
     db.session.commit()
