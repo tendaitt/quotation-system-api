@@ -1,5 +1,5 @@
 from connexion import request
-from flask import make_response, abort, jsonify
+from flask import make_response, jsonify
 from sqlalchemy.exc import IntegrityError
 
 from src import db
@@ -78,7 +78,7 @@ def get_product_by_id(productID):
     result = db.session.query(Product).filter_by(id=productID).first()
 
     if result is None:
-        return 'Product not found', 404
+        return make_response('Product not found', 404)
 
     product = {
         'id': result.id,

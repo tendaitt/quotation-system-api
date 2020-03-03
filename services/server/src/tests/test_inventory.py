@@ -148,7 +148,10 @@ def test_get_existing_product_by_id(test_client, test_db):
 
 
 def test_get_non_existent_product_by_id(test_client, test_db):
-    pass
+    response = test_client.get('/v1/inventory/1')
+
+    assert response.status_code == 404
+    assert response.data == b'Product not found'
 
 
 def test_update_product():
