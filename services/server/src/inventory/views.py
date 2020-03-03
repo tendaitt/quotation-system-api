@@ -1,5 +1,6 @@
 from connexion import request
 from flask import make_response, abort, jsonify
+from sqlalchemy.exc import IntegrityError
 
 from src import db
 from src.models import Product
@@ -25,11 +26,23 @@ def add_product(body):  # noqa: E501
             .one_or_none()
 
         if existing_product is None:
-            db.session.add(new_product)
-            db.session.commit()
-            return make_response('New product successfully created', 201)
+            try:
+                db.session.add(new_product)
+                db.session.commit()
+                return make_response(
+                    'New product successfully created',
+                    201
+                )
+            except IntegrityError:
+                return make_response(
+                    'A product with that name already exists',
+                    409
+                )
         else:
-            abort(409, f'Product, {name}, already exists')
+            return make_response(
+                f'Product, {name}, already exists',
+                409
+            )
 
 
 def delete_product(productID):  # noqa: E501
