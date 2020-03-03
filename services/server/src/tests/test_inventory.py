@@ -169,6 +169,7 @@ def test_update_existing_product(test_client, test_db):
     )
 
     updated_product = {
+        'id': 1,
         'name': 'Tables',
         'description': '10 seater',
         'quantity': 1,
@@ -185,5 +186,19 @@ def test_update_existing_product(test_client, test_db):
     assert response.data == b'Product information was updated'
 
 
-def test_update_non_existent_product(test_client, test_db):
-    pass
+def test_cannot_update_non_existent_product(test_client, test_db):
+    non_existent_product = {
+        'name': 'Tables',
+        'description': '10 seater',
+        'quantity': 1,
+        'price': 25
+    }
+
+    response = test_client.put(
+        '/v1/inventory',
+        json=non_existent_product,
+        content_type='application/json'
+    )
+
+    assert response.status_code == 404
+    assert response.data == b'Product not found'
