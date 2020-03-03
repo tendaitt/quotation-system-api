@@ -200,6 +200,7 @@ def test_update_existing_customer(test_client, test_db):
     )
 
     updated_customer = {
+        'id': 1,
         'first_name': 'John',
         'last_name': 'Doe',
         'email': 'john@doe.com',
@@ -216,5 +217,19 @@ def test_update_existing_customer(test_client, test_db):
     assert response.data == b'Customer information was updated'
 
 
-def test_update_non_existent_customer():
-    pass
+def test_update_non_existent_customer(test_client, test_db):
+    non_existent_customer = {
+        'first_name': 'John',
+        'last_name': 'Doe',
+        'email': 'john@doe.com',
+        'phone_number': '(000) 00-0000'
+    }
+
+    response = test_client.put(
+        '/v1/customer',
+        json=non_existent_customer,
+        content_type='application/json'
+    )
+
+    assert response.status_code == 404
+    assert response.data == b'Customer not found'

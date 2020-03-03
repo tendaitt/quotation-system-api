@@ -64,12 +64,10 @@ paths:
               schema:
                 $ref: "#/definitions/Customer"
             responses:
-                400:
-                    description: "Invalid ID supplied"
+                201:
+                    description: "Customer information was updated"
                 404:
                     description: "Customer not found"
-                405:
-                    description: "Validation exception"
             x-swagger-router-controller: "src.customers.views"
 
     /customer/{customerID}:

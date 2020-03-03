@@ -101,17 +101,23 @@ def update_customer(body):  # noqa: E501
         email = body.get('email')
         phone_number = body.get('phone_number')
 
-        customer = db.session.query(Customer).filter_by(id=id)
+        if id is not None:
+            customer = db.session.query(Customer).filter_by(id=id)
 
-        data = {
-            'id': id,
-            'first_name': first_name,
-            'last_name': last_name,
-            'email': email,
-            'phone_number': phone_number
-        }
+            if customer.first() is not None:
+                data = {
+                    'id': id,
+                    'first_name': first_name,
+                    'last_name': last_name,
+                    'email': email,
+                    'phone_number': phone_number
+                }
 
-        customer.update(data)
-        db.session.commit()
+                customer.update(data)
+                db.session.commit()
 
-        return make_response('Customer information was updated', 201)
+                return make_response('Customer information was updated', 201)
+            else:
+                return make_response('Customer not found', 404)
+        else:
+            return make_response('Customer not found', 404)
