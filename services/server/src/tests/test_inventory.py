@@ -128,7 +128,26 @@ def test_get_all_products(test_client, test_db):
     assert response.status_code == 200
 
 
-def test_get_product_by_id():
+def test_get_existing_product_by_id(test_client, test_db):
+    new_product = {
+        'name': 'Tables',
+        'description': '10 seater',
+        'quantity': 5,
+        'price': 500
+    }
+
+    test_client.post(
+        '/v1/inventory',
+        json=new_product,
+        content_type='application/json'
+    )
+
+    response = test_client.get('/v1/inventory/1')
+
+    assert response.status_code == 200
+
+
+def test_get_non_existent_product_by_id(test_client, test_db):
     pass
 
 
