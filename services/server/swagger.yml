@@ -158,6 +158,8 @@ paths:
               schema:
                 $ref: "#/definitions/Product"
             responses:
+                201:
+                    description: "New product succesfully created"
                 405:
                     description: "Invalid input"
             x-swagger-router-controller: "src.inventory.views"
