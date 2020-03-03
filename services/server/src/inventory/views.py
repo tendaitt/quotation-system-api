@@ -6,7 +6,7 @@ from src import db
 from src.models import Product
 
 
-def add_product(body):  # noqa: E501
+def add_product(body):
     if request.is_json:
         name = body.get('name')
         description = body.get('description')
@@ -45,7 +45,7 @@ def add_product(body):  # noqa: E501
             )
 
 
-def delete_product(productID):  # noqa: E501
+def delete_product(productID):
     product = db.session.query(Product).filter_by(id=productID)
 
     if product.one_or_none() is None:
@@ -57,7 +57,7 @@ def delete_product(productID):  # noqa: E501
     return make_response('Product sucessfully deleted', 200)
 
 
-def get_all_products():  # noqa: E501
+def get_all_products():
     results = db.session.query(Product).order_by(Product.name.asc())
     all_products = []
 
@@ -91,7 +91,7 @@ def get_product_by_id(productID):
     return make_response(product, 200)
 
 
-def update_product(body):  # noqa: E501
+def update_product(body):
     if request.is_json:
         id = body.get('id')
         name = body.get('name')
