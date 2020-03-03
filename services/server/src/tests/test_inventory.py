@@ -40,12 +40,59 @@ def test_add_new_product_when_none_exists(test_client, test_db):
     assert response.data == b'New product successfully created'
 
 
-def test_add_new_duplicate_customer():
-    pass
+def test_cannot_add_duplicate_product(test_client, test_db):
+    new_product = {
+        'name': 'Tables',
+        'description': '10 seater',
+        'quantity': 5,
+        'price': 500
+    }
+
+    test_client.post(
+        '/v1/inventory',
+        json=new_product,
+        content_type='application/json'
+    )
+
+    response = test_client.post(
+        '/v1/inventory',
+        json=new_product,
+        content_type='application/json'
+    )
+
+    assert response.status_code == 409
+    assert response.data == b'Product, Tables, already exists'
 
 
-def test_add_product_with_existing_name():
-    pass
+def test_cannot_add_product_with_existing_name(test_client, test_db):
+    new_product = {
+        'name': 'Tables',
+        'description': '10 seater',
+        'quantity': 5,
+        'price': 500
+    }
+
+    test_client.post(
+        '/v1/inventory',
+        json=new_product,
+        content_type='application/json'
+    )
+
+    new_product2 = {
+        'name': 'Tables',
+        'description': '5 seater',
+        'quantity': 1,
+        'price': 50
+    }
+
+    response = test_client.post(
+        '/v1/inventory',
+        json=new_product2,
+        content_type='application/json'
+    )
+
+    assert response.status_code == 409
+    assert response.data == b'A product with that name already exists'
 
 
 def test_delete_product():
