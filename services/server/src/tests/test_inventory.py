@@ -122,8 +122,10 @@ def test_delete_non_existent_product(test_client, test_db):
     assert response.data == b'Product not found'
 
 
-def test_get_all_products():
-    pass
+def test_get_all_products(test_client, test_db):
+    response = test_client.get('/v1/inventory/all')
+
+    assert response.status_code == 200
 
 
 def test_get_product_by_id():
