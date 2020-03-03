@@ -95,7 +95,27 @@ def test_cannot_add_product_with_existing_name(test_client, test_db):
     assert response.data == b'A product with that name already exists'
 
 
-def test_delete_product():
+def test_delete_existing_product(test_client, test_db):
+    new_product = {
+        'name': 'Tables',
+        'description': '10 seater',
+        'quantity': 5,
+        'price': 500
+    }
+
+    test_client.post(
+        '/v1/inventory',
+        json=new_product,
+        content_type='application/json'
+    )
+
+    response = test_client.delete('/v1/inventory/1')
+
+    assert response.status_code == 200
+    assert response.data == b'Product successfully deleted'
+
+
+def test_delete_non_existent_product(test_client, test_db):
     pass
 
 

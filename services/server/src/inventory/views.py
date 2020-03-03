@@ -54,7 +54,7 @@ def delete_product(productID):
     product.delete()
     db.session.commit()
 
-    return make_response('Product sucessfully deleted', 200)
+    return make_response('Product successfully deleted', 200)
 
 
 def get_all_products():
