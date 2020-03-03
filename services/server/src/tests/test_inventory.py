@@ -78,7 +78,7 @@ def test_cannot_add_product_with_existing_name(test_client, test_db):
         content_type='application/json'
     )
 
-    new_product2 = {
+    new_product_2 = {
         'name': 'Tables',
         'description': '5 seater',
         'quantity': 1,
@@ -87,7 +87,7 @@ def test_cannot_add_product_with_existing_name(test_client, test_db):
 
     response = test_client.post(
         '/v1/inventory',
-        json=new_product2,
+        json=new_product_2,
         content_type='application/json'
     )
 
@@ -154,5 +154,36 @@ def test_get_non_existent_product_by_id(test_client, test_db):
     assert response.data == b'Product not found'
 
 
-def test_update_product():
+def test_update_existing_product(test_client, test_db):
+    new_product = {
+        'name': 'Tables',
+        'description': '10 seater',
+        'quantity': 5,
+        'price': 500
+    }
+
+    test_client.post(
+        '/v1/inventory',
+        json=new_product,
+        content_type='application/json'
+    )
+
+    updated_product = {
+        'name': 'Tables',
+        'description': '10 seater',
+        'quantity': 1,
+        'price': 25
+    }
+
+    response = test_client.put(
+        '/v1/inventory',
+        json=updated_product,
+        content_type='application/json'
+    )
+
+    assert response.status_code == 201
+    assert response.data == b'Product information was updated'
+
+
+def test_update_non_existent_product(test_client, test_db):
     pass
