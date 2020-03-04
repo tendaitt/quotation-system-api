@@ -144,8 +144,11 @@ def test_delete_existing_quote(test_client, test_db, quote_dependencies):
     assert response.data == b'Quote successfully deleted'
 
 
-def test_delete_non_existing_quote(test_client, test_db, quote_dependencies):
-    pass
+def test_delete_non_existent_quote(test_client, test_db, quote_dependencies):
+    response = test_client.delete('/v1/quote/1')
+
+    assert response.status_code == 404
+    assert response.data == b'Quote not found'
 
 
 def test_get_all_quotes():

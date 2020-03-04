@@ -50,7 +50,7 @@ def delete_quote(quoteID):
     quote = db.session.query(Quote).filter_by(id=quoteID)
 
     if quote.one_or_none() is None:
-        abort(404, 'Quote not found')
+        return make_response('Quote not found', 404)
 
     quote_id = quote.first().id
     quote_items = db.session.query(QuoteItem).filter_by(quote_id=quote_id)
