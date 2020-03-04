@@ -92,8 +92,29 @@ def test_add_new_transaction_to_database(test_db, quote_dependencies):
     assert transaction is not None
 
 
-def test_add_new_quote():
-    pass
+def test_add_new_quote(test_client, test_db, quote_dependencies):
+    new_quote = {
+        "customer_id": 1,
+        "date": '01/01/2020',
+        "description": "New quote",
+        "total": 2500,
+        "quote_items": [
+            {
+                "product_id": 1,
+                "product_price": 500,
+                "product_quantity": 5
+            }
+        ]
+    }
+
+    response = test_client.post(
+        'v1/quote',
+        json=new_quote,
+        content_type='application/json'
+    )
+
+    assert response.status_code == 201
+    assert response.data == b'New quote was successfully created'
 
 
 def test_delete_quote():
