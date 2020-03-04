@@ -183,5 +183,10 @@ def test_get_existing_quote_by_id(test_client, test_db, quote_dependencies):
     assert response.status_code == 200
 
 
-def test_get_non_existent_quote_by_id(test_client, test_db, quote_dependencies):
-    pass
+def test_get_non_existent_quote_by_id(test_client, test_db,
+                                      quote_dependencies):
+
+    response = test_client.get('v1/quote/1')
+
+    assert response.status_code == 404
+    assert response.data == b'Quote not found'

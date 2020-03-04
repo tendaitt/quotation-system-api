@@ -1,5 +1,5 @@
 from connexion import request
-from flask import make_response, abort, jsonify
+from flask import make_response, jsonify
 
 from src import db
 from src.models import Quote, QuoteItem, Transaction
@@ -102,7 +102,7 @@ def get_quote_by_id(quoteID):
     result = db.session.query(Quote).filter_by(id=quoteID).first()
 
     if result is None:
-        return 'Quote not found', 404
+        return make_response('Quote not found', 404)
 
     all_quote_items = []
 
