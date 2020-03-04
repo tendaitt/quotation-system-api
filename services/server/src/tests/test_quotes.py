@@ -157,5 +157,31 @@ def test_get_all_quotes(test_client, test_db, quote_dependencies):
     assert response.status_code == 200
 
 
-def test_get_quote_by_id():
+def test_get_existing_quote_by_id(test_client, test_db, quote_dependencies):
+    new_quote = {
+        "customer_id": 1,
+        "date": '01/01/2020',
+        "description": "New quote",
+        "total": 2500,
+        "quote_items": [
+            {
+                "product_id": 1,
+                "product_price": 500,
+                "product_quantity": 5
+            }
+        ]
+    }
+
+    test_client.post(
+        'v1/quote',
+        json=new_quote,
+        content_type='application/json'
+    )
+
+    response = test_client.get('/v1/quote/1')
+
+    assert response.status_code == 200
+
+
+def test_get_non_existent_quote_by_id(test_client, test_db, quote_dependencies):
     pass
