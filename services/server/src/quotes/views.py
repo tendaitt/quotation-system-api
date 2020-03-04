@@ -10,11 +10,13 @@ def create_quote(body):  # noqa: E501
         customer_id = body.get('customer_id')
         date = body.get('date')
         description = body.get('description')
+        total = body.get('total')
 
         new_quote = Quote(
             customer_id=customer_id,
             date=date,
-            description=description
+            description=description,
+            total=total
         )
 
         db.session.add(new_quote)
@@ -31,13 +33,11 @@ def create_quote(body):  # noqa: E501
             )
             db.session.add(new_quote_item)
 
-        amount = 0
-
         new_transaction = Transaction(
             customer_id=customer_id,
             quote_id=new_quote.id,
             date=date,
-            amount=amount
+            total=total
         )
 
         db.session.add(new_transaction)

@@ -487,6 +487,7 @@ definitions:
         required:
             - "customer_id"
             - "description"
+            - "total"
             - "quote_items"
             - "date"
         properties:
@@ -498,6 +499,9 @@ definitions:
                 format: "int64"
             description:
                 type: "string"
+            total:
+                type: "integer"
+                format: "int64"
             quote_items:
                 type: "array"
                 items:

@@ -76,6 +76,7 @@ class Quote(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.Date, nullable=False)
     description = db.Column(db.String, nullable=False)
+    total = db.Column(db.Integer, nullable=False)
     customer_id = db.Column(
         db.Integer,
         db.ForeignKey('customers.id'),
@@ -85,10 +86,13 @@ class Quote(db.Model):
     quote_items = db.relationship('QuoteItem', backref='quotes', lazy=True)
     transactions = db.relationship('Transaction', backref='quotes', lazy=True)
 
-    def __init__(self, id=None, date=None, description=None, customer_id=None):
+    def __init__(self, id=None, date=None,
+                 description=None, total=None, customer_id=None):
+
         self.id = id
         self.date = date
         self.description = description
+        self.total = total
         self.customer_id = customer_id
 
 
@@ -126,7 +130,7 @@ class Transaction(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.Date, nullable=False)
-    amount = db.Column(db.Integer, nullable=False)
+    total = db.Column(db.Integer, nullable=False)
     customer_id = db.Column(
         db.Integer,
         db.ForeignKey('customers.id'),
@@ -138,10 +142,10 @@ class Transaction(db.Model):
         nullable=False
     )
 
-    def __init__(self, id=None, date=None, amount=None,
+    def __init__(self, id=None, date=None, total=None,
                  customer_id=None, quote_id=None):
         self.id = id
         self.date = date
-        self.amount = amount
+        self.total = total
         self.customer_id = customer_id
         self.quote_id = quote_id
