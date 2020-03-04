@@ -5,6 +5,7 @@ from sqlalchemy_utils import database_exists, create_database
 
 from src import create_app
 from src.database import db
+from src.models import Customer, Product
 
 TEST_DB = "test"
 
@@ -38,3 +39,24 @@ def test_db(test_app):
         yield db
 
     db.drop_all()
+
+
+@pytest.fixture(scope='function')
+def quote_dependencies(test_db):
+    new_customer = Customer(
+        first_name='John',
+        last_name='Doe',
+        email='john@doe.com',
+        phone_number='(000) 000-0000'
+    )
+
+    new_product = Product(
+        name='Tables',
+        description='10 seater',
+        quantity=5,
+        price=500
+    )
+
+    test_db.session.add(new_customer)
+    test_db.session.add(new_product)
+    test_db.session.commit()
