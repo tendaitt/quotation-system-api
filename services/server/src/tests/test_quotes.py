@@ -117,7 +117,34 @@ def test_add_new_quote(test_client, test_db, quote_dependencies):
     assert response.data == b'New quote was successfully created'
 
 
-def test_delete_quote():
+def test_delete_existing_quote(test_client, test_db, quote_dependencies):
+    new_quote = {
+        "customer_id": 1,
+        "date": '01/01/2020',
+        "description": "New quote",
+        "total": 2500,
+        "quote_items": [
+            {
+                "product_id": 1,
+                "product_price": 500,
+                "product_quantity": 5
+            }
+        ]
+    }
+
+    test_client.post(
+        'v1/quote',
+        json=new_quote,
+        content_type='application/json'
+    )
+
+    response = test_client.delete('/v1/quote/1')
+
+    assert response.status_code == 200
+    assert response.data == b'Quote successfully deleted'
+
+
+def test_delete_non_existing_quote(test_client, test_db, quote_dependencies):
     pass
 
 
