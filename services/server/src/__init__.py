@@ -2,6 +2,7 @@ import os
 import connexion
 
 from src.database import db
+from src.authentication import login_manager
 
 
 def create_app():
@@ -18,5 +19,10 @@ def init_db(app):
     db.init_app(app)
 
 
+def init_login_manager(app):
+    login_manager.init_app(app)
+
+
 app = create_app()
 init_db(app)
+init_login_manager(app)

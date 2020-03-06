@@ -1,37 +1,19 @@
-def login(username, password):  # noqa: E501
-    """Logs users into the system
+from src import login_manager
+from src.models import User
 
-     # noqa: E501
 
-    :param username: The username for login
-    :type username: str
-    :param password: The password for login
-    :type password: str
+@login_manager.user_loader
+def load_user(user_id):
+    return User.get_id(user_id)
 
-    :rtype: str
-    """
+
+def login(username, password):
     return 'do some magic!'
 
 
-def logout():  # noqa: E501
-    """Logs out current logged in user session
-
-     # noqa: E501
-
-
-    :rtype: None
-    """
+def logout():
     return 'do some magic!'
 
 
-def new_user(body):  # noqa: E501
-    """Register a new user
-
-     # noqa: E501
-
-    :param body: User that needs to be created
-    :type body: dict | bytes
-
-    :rtype: None
-    """
+def new_user(body):
     return 'do some magic!'

@@ -9,6 +9,7 @@ class User(db.Model):
     username = db.Column(db.String, unique=True, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
     image_url = db.Column(db.String, unique=True, nullable=False)
+    authenticated = db.Column(db.Boolean, default=False)
 
     def __init__(self, id=None, username=None, email=None, image_url=None):
         self.id = id
@@ -18,6 +19,18 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User {0}>'.format(self.name)
+
+    def is_active(self):
+        return True
+
+    def get_id(self):
+        return self.username
+
+    def is_authenticated(self):
+        return self.authenticated
+
+    def is_anonymous(self):
+        return False
 
 
 class Customer(db.Model):
