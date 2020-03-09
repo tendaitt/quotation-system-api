@@ -2,7 +2,7 @@ import os
 import connexion
 
 from src.database import db
-from src.authentication import login_manager
+from src.authentication import login_manager, bcrypt
 
 
 def create_app():
@@ -13,6 +13,10 @@ def create_app():
     application.config.from_object(os.environ['APP_SETTINGS'])
 
     return application
+
+
+def init_bcrypt(app):
+    bcrypt.init_app(app)
 
 
 def init_db(app):
