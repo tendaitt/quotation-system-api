@@ -1,7 +1,7 @@
 from connexion import request
-from flask import make_response, jsonify
+from flask import make_response
 from sqlalchemy.exc import IntegrityError
-from flask_login import current_user, logout_user
+from flask_login import current_user, logout_user, login_user
 
 from src import login_manager, bcrypt, db
 from src.models import User
@@ -13,7 +13,23 @@ def load_user(user_id):
 
 
 def login(username, password):
-    return 'do some magic!'
+    if username is not None and password is not None:
+        existing_user = User.query\
+            .filter_by(User.username == username)\
+            .first()
+
+        if existing_user is not None\
+                and bcrypt.check_password_hash(existing_user.password):
+
+            existing_user.authenticated = True
+            db.session.add(existing_user)
+            db.session.commit()
+            login_user(existing_user)
+            return make_response('User successfully logged in', 200)
+        else:
+            return make_response('Invalid username/password supplied', 400)
+    else:
+        return make_response('Invalid username/password supplied', 400)
 
 
 def logout():
