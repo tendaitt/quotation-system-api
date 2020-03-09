@@ -5,6 +5,7 @@ from sqlalchemy_utils import database_exists, create_database
 
 from src import create_app
 from src.database import db
+from src.authentication import bcrypt
 from src.models import Customer, Product
 
 TEST_DB = "test"
@@ -22,6 +23,13 @@ def test_client(test_app):
     with test_app.app_context():
         testing_client = test_app.test_client()
         yield testing_client
+
+
+@pytest.fixture(scope='function')
+def test_bcrypt(test_app):
+    with test_app.app_context():
+        bcrypt.init_app(test_app)
+        yield bcrypt
 
 
 @pytest.fixture(scope='function')
