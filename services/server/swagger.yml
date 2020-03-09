@@ -352,7 +352,7 @@ paths:
             - "user"
             summary: "Register a new user"
             description: ""
-            operationId: "new_user"
+            operationId: "register"
             consumes:
             - "application/json"
             produces:
@@ -365,6 +365,8 @@ paths:
               schema:
                 $ref: "#/definitions/User"
             responses:
+                201:
+                    description: "New user was succesfully created"
                 405:
                     description: "Invalid input"
             x-swagger-router-controller: "src.users.views"
