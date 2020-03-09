@@ -1,6 +1,7 @@
 from connexion import request
 from flask import make_response, jsonify
 from sqlalchemy.exc import IntegrityError
+from flask_login import current_user, logout_user
 
 from src import login_manager, bcrypt, db
 from src.models import User
@@ -16,7 +17,12 @@ def login(username, password):
 
 
 def logout():
-    return 'do some magic!'
+    user = current_user
+    user.authenticated = False
+    db.session.add(user)
+    db.session.commit()
+    logout_user()
+    return make_response('User successfully logged out', 200)
 
 
 def register(body):
