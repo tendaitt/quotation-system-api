@@ -8,13 +8,17 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
+    password = db.Column(db.String, nullable=False)
     image_url = db.Column(db.String, unique=True, nullable=False)
     authenticated = db.Column(db.Boolean, default=False)
 
-    def __init__(self, id=None, username=None, email=None, image_url=None):
+    def __init__(self, id=None, username=None, email=None,
+                 password=None, image_url=None):
+
         self.id = id
         self.username = username
         self.email = email
+        self.password = password
         self.image_url = image_url
 
     def __repr__(self):
