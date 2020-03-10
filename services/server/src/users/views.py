@@ -52,7 +52,7 @@ def register(body):
         new_user = User(
             username=username,
             email=email,
-            password=password,
+            password=password.decode('utf-8'),
             image_url=image_url
         )
 
