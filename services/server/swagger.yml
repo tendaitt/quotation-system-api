@@ -516,6 +516,7 @@ definitions:
         required:
             - "username"
             - "email"
+            - "password"
             - "image_url"
         properties:
             id:
@@ -524,6 +525,8 @@ definitions:
             username:
                 type: "string"
             email:
+                type: "string"
+            password:
                 type: "string"
             image_url:
                 type: "string"
