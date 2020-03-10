@@ -1,5 +1,23 @@
-def test_users_can_be_added_to_database():
-    pass
+from src.models import User
+
+
+def test_users_can_be_added_to_database(test_db, test_bcrypt):
+    new_user = User(
+        username='johndoe',
+        email='john@doe.com',
+        password=test_bcrypt.generate_password_hash('johndoe'),
+        image_url='https://dummyimage.com/629x296'
+    )
+
+    test_db.session.add(new_user)
+    test_db.session.commit()
+
+    users = test_db.session.query(User).all()
+
+    for user in users:
+        user.username
+
+    assert user.username == 'johndoe'
 
 
 def test_users_cannot_login_unless_registered():
