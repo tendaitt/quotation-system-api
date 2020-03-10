@@ -29,8 +29,26 @@ def test_users_cannot_login_unless_registered(test_client, test_db):
     assert response.data == b'Invalid username/password supplied'
 
 
-def test_users_can_login():
-    pass
+def test_users_can_login(test_client, test_db, test_login_manager):
+    new_user = {
+        'username': 'johndoe',
+        'email': 'john@doe.com',
+        'password': 'johndoe',
+        'image_url': 'https://dummyimage.com/629x296'
+    }
+
+    test_client.post(
+        '/v1/user',
+        json=new_user,
+        content_type='application/json'
+    )
+
+    response = test_client.get(
+        '/v1/user/login?username=johndoe&password=johndoe',
+    )
+
+    assert response.status_code == 200
+    assert response.data == b'User successfully logged in'
 
 
 def test_user_cannot_login_with_invalid_information():
