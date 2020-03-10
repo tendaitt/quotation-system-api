@@ -20,8 +20,13 @@ def test_users_can_be_added_to_database(test_db, test_bcrypt):
     assert user.username == 'johndoe'
 
 
-def test_users_cannot_login_unless_registered():
-    pass
+def test_users_cannot_login_unless_registered(test_client, test_db):
+    response = test_client.get(
+        '/v1/user/login?username=johndoe&password=johndoe',
+    )
+
+    assert response.status_code == 400
+    assert response.data == b'Invalid username/password supplied'
 
 
 def test_users_can_login():

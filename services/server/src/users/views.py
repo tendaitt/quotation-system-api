@@ -15,12 +15,13 @@ def load_user(user_id):
 def login(username, password):
     if username is not None and password is not None:
         existing_user = User.query\
-            .filter_by(User.username == username)\
+            .filter_by(username=username)\
             .first()
 
-        if existing_user is not None\
-                and bcrypt.check_password_hash(existing_user.password):
+        valid_user = existing_user is not None and bcrypt.check_password_hash(
+            existing_user.password, password)
 
+        if valid_user:
             existing_user.authenticated = True
             db.session.add(existing_user)
             db.session.commit()
